@@ -1,0 +1,29 @@
+{
+  "name": "job-tracker-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "cross-env NODE_ENV=development concurrently \"nodemon server/server.js\" \"webpack serve --open\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code-Eevee/Job-Tracker-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Code-Eevee/Job-Tracker-App/issues"
+  },
+  "homepage": "https://github.com/Code-Eevee/Job-Tracker-App#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}

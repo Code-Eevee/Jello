@@ -1,12 +1,12 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: "./client/index.js",
+  entry: './client/index.js',
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -14,9 +14,9 @@ module.exports = {
         test: /\.jsx?/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
@@ -24,37 +24,37 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          'style-loader',
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader",
+          'sass-loader',
         ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        type: "asset",
+        type: 'asset',
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "/index.html",
+      template: '/index.html',
     }),
   ],
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   devServer: {
-    publicPath: "/build",
+    publicPath: '/build',
     proxy: {
       //SUPER IMPORTANT
-      "/**": "http://localhost:3000",
-      "/": "http://localhost:3000",
-      "/": "http://localhost:3000",
+      '/**': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
     },
     hot: true,
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ["", ".js", ".jsx"],
+    extensions: ['', '.js', '.jsx'],
   },
 };

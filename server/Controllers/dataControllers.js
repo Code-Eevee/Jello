@@ -4,7 +4,7 @@ const dataControllers = {};
 
 //company get
 dataControllers.getCompanies = (req, res, next)=> {
-  const userID = [res.locals.user[0]._id];
+  const userID = [req.body.userID];
   const query_text = `SELECT * FROM company_table WHERE user_id = $1;`;
   dataModel.query(query_text, userID, (err, query_res) => {
       if (err) {
@@ -41,10 +41,10 @@ dataControllers.addCompany = (req, res, next) => {
     body.contact_email,
     body.application_type,
     body.application_date,
-    body.outcomes,
+    body.position_type,
     body.notes
   ];
-  const query_text = `INSERT INTO company_table (user_id, company_name, status, contact_name, contact_email, application_type, application_date, outcomes, notes)
+  const query_text = `INSERT INTO company_table (user_id, company_name, status, contact_name, contact_email, application_type, application_date, position_type, notes)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
   dataModel.query(query_text, companyInformation, (err, query_res) => {
     if (err) {
@@ -61,14 +61,13 @@ dataControllers.addEvent = (req, res, next) => {
   const eventInformation = [
     body.company_id,
     body.event_type,
-    body.position_type,
     body.date,
     body.interviewer_name,
     body.interviewer_email,
     body.notes
   ];
-  const query_text = `INSERT INTO event_table (company_id, event_type, position_type, date, interviewer_name, interviewer_email, notes)
-  VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+  const query_text = `INSERT INTO event_table (company_id, event_type, date, interviewer_name, interviewer_email, notes)
+  VALUES ($1, $2, $3, $4, $5, $6);`;
   dataModel.query(query_text, eventInformation, (err, query_res) => {
     if(err){
       return next({log: err});
@@ -116,7 +115,7 @@ dataControllers.editCompany = (req, res, next) => {
     body.contact_email,
     body.application_type,
     body.application_date,
-    body.outcomes,
+    body.position_type,
     body.notes
   ];
   const query_text = `UPDATE company_table
@@ -127,7 +126,7 @@ dataControllers.editCompany = (req, res, next) => {
       contact_email = $6,
       application_type = $7,
       application_date = $8,
-      outcomes = $9,
+      position_type = $9,
       notes = $10
     WHERE _id = $1;`;
   dataModel.query(query_text, companyInformation, (err, query_res) => {
@@ -146,7 +145,6 @@ dataControllers.editEvent = (req, res, next) => {
     body.eventID,
     body.company_id,
     body.event_type,
-    body.position_type,
     body.date,
     body.interviewer_name,
     body.interviewer_email,
@@ -155,11 +153,10 @@ dataControllers.editEvent = (req, res, next) => {
   const query_text = `UDPATE events_table
   SET company_id = $2,
     event_type = $3,
-    position_type = $4,
-    date = $5,
-    interviewer_name = $6,
-    interviewer_email = $7,
-    notes = $8
+    date = $4,
+    interviewer_name = $5,
+    interviewer_email = $6,
+    notes = $7
   WHERE _id = $1;`;
   dataModel.query(query_text, eventInformation, (err, query_res) => {
     if(err){

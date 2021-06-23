@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const userControllers = {};
 
+//user verify
 userControllers.verifyUser = (req, res, next) => {
   const userEmail = [req.body.email];
   console.log('this is useremail', userEmail);
@@ -28,6 +29,7 @@ userControllers.verifyUser = (req, res, next) => {
   });
 };
 
+//user create
 userControllers.createUser = async (req, res, next) => {
   const body = req.body;
   const saltRounds = 10;
@@ -40,7 +42,7 @@ userControllers.createUser = async (req, res, next) => {
   ];
 
   const query_text = `INSERT INTO user_table (first_name, last_name, email, password) 
-  VALUES ($1, $2, $3, $4)`;
+  VALUES ($1, $2, $3, $4);`;
   dataModel.query(query_text, userInformation, (err, query_res) => {
     if(err){
       return next({log: err});

@@ -11,9 +11,8 @@ router.post('/signup', userControllers.createUser, (req, res) => {
 
 router.get('/login',
   userControllers.verifyUser,
-  dataControllers.getCompanies,
   (req, res) => {
-    res.status(200).send(res.locals.companies);
+    res.status(200).send({ userVerified: true, userID: res.locals.userID });
 });
 
 //companies get

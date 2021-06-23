@@ -21,7 +21,7 @@ userControllers.verifyUser = (req, res, next) => {
         if (isMatched === false) {
           return res.status(400).send({userVerified: false});
         } else {
-          res.locals.user = query_res.rows;
+          res.locals.userID = query_res.rows[0]._id;
           return next();
         }
       });

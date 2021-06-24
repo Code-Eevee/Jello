@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,12 +26,12 @@ const App = (props) => {
     <Router>
     <Navigation />
       <Switch>
-      <Route path="/" exact>
+      <Route path="/home" exact>
         <Home
           userID={userID}
         />
       </Route>
-      <Route path="/login" exact>
+      <Route path="/" exact>
         <Login
           email={email}
           setEmail={setEmail}

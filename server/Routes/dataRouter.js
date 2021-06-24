@@ -6,7 +6,7 @@ const userControllers = require('../Controllers/userControllers');
 const router = express.Router();
 
 router.post('/signup', userControllers.createUser, (req, res) => {
-  res.status(200).send({ newUserCreated: true });
+  res.status(200).send({ newUserCreated: true, userID: res.locals.newUserID });
 });
 
 router.post('/login', userControllers.verifyUser, (req, res) => {

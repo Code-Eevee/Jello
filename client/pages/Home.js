@@ -6,9 +6,9 @@ import Col from 'react-bootstrap/Col';
 
 //create a function to iterate through data from backend and manipluate it ot DND object
 
-const Home = () => {
+const Home = ({ userID }) => {
   const [newCard, setNewCard] = useState(() => ({
-    user_id: 1,
+    user_id: userID,
     status: 'applied',
     contact_name: 'NA',
     contact_email: 'NA',
@@ -81,7 +81,7 @@ const Home = () => {
     fetch('/data/companies', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userID: 1 }),
+      body: JSON.stringify({ userID: userID }),
     })
       .then((data) => data.json())
       .then((res) => {

@@ -42,11 +42,13 @@ userControllers.createUser = async (req, res, next) => {
   ];
 
   const query_text = `INSERT INTO user_table (first_name, last_name, email, password) 
-  VALUES ($1, $2, $3, $4);`;
+  VALUES ($1, $2, $3, $4) RETURNING _id;`;
   dataModel.query(query_text, userInformation, (err, query_res) => {
+    console.log(query_res);
     if(err){
       return next({log: err});
     } else {
+      res.locals.newUserID = query_res.rows[0]._id;
       return next();
     }
   });

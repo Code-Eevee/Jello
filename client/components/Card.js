@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 const CompanyCard = ({ text, position, date, index }) => {
   return (
+    <div className= "Card-container">
     <Draggable draggableId={text} index={index}>
       {(provided) => (
         <div
@@ -11,14 +12,13 @@ const CompanyCard = ({ text, position, date, index }) => {
           {...provided.dragHandleProps}
           className="Card"
         >
-          {text}
-          <br />
-          {position}
-          <br />
-          {date.slice(0, 10)}
+          <p>{text}</p>
+          <p>{position}</p>
+          <p>{date.slice(0, 10)}</p>
         </div>
       )}
     </Draggable>
+    </div>
   );
 };
 

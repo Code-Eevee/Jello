@@ -19,7 +19,7 @@ function Navigation(props) {
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="/">
+            <NavLink exact to="/home">
               Home
             </NavLink>
           </li>

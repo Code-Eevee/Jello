@@ -19,8 +19,8 @@ const Login = ({
         setPassword(e.target.value);
     }
 
-    const login = async () => {
-        await fetch('/data/login', {
+    const login = () => {
+        fetch('/data/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,9 +29,10 @@ const Login = ({
         })
             .then(response => response.json())
             .then(response => {
+                console.log(response.userVerified);
                 if (response.userVerified) {
                     setUserID(response.userID);
-                    history.push('/');
+                    history.push('/home');
                 } else {
                     setLoginFailedNotification([<div>Check email/password or sign up.</div>]);
                 }

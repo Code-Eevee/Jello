@@ -6,6 +6,7 @@ const SignUp = ({
   setEmail,
   password,
   setPassword,
+  userID,
   setUserID,
   firstName,
   setFirstName,
@@ -35,8 +36,8 @@ const SignUp = ({
   };
 
   //complete signup function
-  const finishSignup = async () => {
-    await fetch('/data/signup', {
+  const finishSignup = () => {
+    fetch('/data/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +46,9 @@ const SignUp = ({
     })
       .then(response => response.json())
       .then(response => {
+        setUserID(response.userID);
         console.log('signed up', response)
+        history.push('/home');
       })
       .catch(err => {
         console.log('there was an error in signup', err);

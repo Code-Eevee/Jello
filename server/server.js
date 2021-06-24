@@ -15,6 +15,16 @@ app.get('/', (req, res) => {
 app.get('/calendar', (req, res) => {
   res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
+app.get('/signUp', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
+});
+app.get('/signOut', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
+});
+app.get('/home', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
+});
+
 app.use('/build', express.static(path.join(__dirname, '../build/bundle.js')));
 
 //404 error

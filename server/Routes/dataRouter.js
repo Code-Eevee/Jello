@@ -9,14 +9,12 @@ router.post('/signup', userControllers.createUser, (req, res) => {
   res.status(200).send({ newUserCreated: true });
 });
 
-router.get('/login',
-  userControllers.verifyUser,
-  (req, res) => {
-    res.status(200).send({ userVerified: true, userID: res.locals.userID });
+router.post('/login', userControllers.verifyUser, (req, res) => {
+  res.status(200).send({ userVerified: true, userID: res.locals.userID });
 });
 
 //companies get
-router.get('/companies', dataControllers.getCompanies, (req, res) => {
+router.post('/companies', dataControllers.getCompanies, (req, res) => {
   res.status(200).send(res.locals.companies);
 });
 
@@ -26,8 +24,8 @@ router.get('/events', dataControllers.getEvents, (req, res) => {
 });
 
 //company post
-router.post('/companies', dataControllers.addCompany, (req, res) => {
-  res.status(200).send({ newCompanyAdded: true });
+router.post('/addcompanies', dataControllers.addCompany, (req, res) => {
+  res.status(200).send({ data: res.locals.quer_res });
 });
 
 //event post
@@ -47,7 +45,11 @@ router.delete('/events', dataControllers.deleteEvent, (req, res) => {
 
 //company edit
 router.patch('/companies', dataControllers.editCompany, (req, res) => {
-  res. status(200).send({ companyUpdated: true });
+  res.status(200).send({ companyUpdated: true });
+});
+
+router.patch('/status', dataControllers.editStatus, (req, res) => {
+  res.status(200).send({ statusUpdated: true });
 });
 
 //event edit

@@ -1,37 +1,25 @@
 import React from 'react';
-import Card from './Company';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 
-
-const Column =({col: { companies, id }}) =>{
-    return (
-        <Droppable droppableId={id}>
-        {provided => (
+const CompanyCard = ({ text, position, date, index }) => {
+  return (
+    <Draggable draggableId={text} index={index}>
+      {(provided) => (
         <div
-          style={{
-              display: 'flex',
-              flexDirection: 'column'
-          }}
-          >
-          <h2>{id}</h2>
-          <div
-           style={{
-               display: 'flex',
-               flexDirection: 'column',
-               minHeight: '120px'
-           }}
-          {...provided.droppableProps}
           ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="Card"
         >
-          {companies.map((text, index) => (
-              <Card key={text} text={text} index={index} />
-          ))}
-          {provided.placeholder}
-         </div>
+          {text}
+          <br />
+          {position}
+          <br />
+          {date.slice(0, 10)}
         </div>
-        )}
-        </Droppable>
-    )
-}
+      )}
+    </Draggable>
+  );
+};
 
-export default Column;
+export default CompanyCard;

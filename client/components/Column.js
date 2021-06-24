@@ -19,9 +19,10 @@ const Column = ({
             style={{
               display: 'flex',
               flexDirection: 'column',
+              paddingLeft: '10px',
             }}
           >
-            <h2>{id}</h2>
+            <h2>{id.charAt(0).toUpperCase() + id.slice(1)}</h2>
             <div
               style={{
                 display: 'flex',

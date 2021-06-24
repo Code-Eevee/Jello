@@ -72,7 +72,7 @@ const AddCardForm = ({ newCard, setNewCard, columns, setColumns }) => {
           }}
         />
       </div>
-      
+
       <div id="position-div">
         <label id="position-label">Position:</label>
         <input
@@ -92,7 +92,9 @@ const AddCardForm = ({ newCard, setNewCard, columns, setColumns }) => {
         />
       </div>
       <br />
-      <button id="add-company-button" onClick={addHandler}>ADD</button>
+      <button id="add-company-button" onClick={addHandler}>
+        ADD
+      </button>
     </div>
   );
 };

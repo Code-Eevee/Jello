@@ -3,7 +3,6 @@ import Column from '../components/Column';
 import { DragDropContext } from 'react-beautiful-dnd';
 import AddCardButton from '../components/AddCardButton';
 import Col from 'react-bootstrap/Col';
-
 //create a function to iterate through data from backend and manipluate it ot DND object
 
 const Home = ({ userID }) => {

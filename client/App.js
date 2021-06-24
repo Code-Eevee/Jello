@@ -14,19 +14,19 @@ import Navigation from './components/Navigation';
 import './scss/styles.scss';
 
 const App = (props) => {
-  return <div>
-    <Router>
-    <Navigation />
-      <Switch>
-      <Route path="/" exact component={Home}/>
-      <Route path="/login" exact component={Login} />
-      <Route path="/calendar" exact component={Calendar}/>
-      <Route path="/signOut" exact component={SignOut}/>
-
-      </Switch>
-    
-    </Router>
-    </div>;
+  return (
+    <div>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/calendar" exact component={Calendar} />
+          <Route path="/signOut" exact component={SignOut} />
+        </Switch>
+      </Router>
+    </div>
+  );
 };
 
 export default App;

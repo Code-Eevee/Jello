@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Column from '../components/Column';
 import { DragDropContext } from 'react-beautiful-dnd';
+import AddCardButton from '../components/AddCardButton';
+import Col from 'react-bootstrap/Col';
 
 //create a function to iterate through data from backend and manipluate it ot DND object
 
 const Home = () => {
-  // const [companies, setCompanies] = useState(['Telsa', 'Company 2', 'Company 3']);
+  const [newCard, setNewCard] = useState(() => ({
+    user_id: 1,
+    status: 'applied',
+    contact_name: 'NA',
+    contact_email: 'NA',
+    application_type: 'NA',
+    notes: 'NA',
+  }));
+
   const filterObject = (arrObj) => {
-    //iterate through the object
-    const proto = ['user_id', 'company_name', 'outcomes', 'status'];
+    //iterate through the objects
+    const proto = [
+      'user_id',
+      'company_name',
+      'position_type',
+      'status',
+      'application_date',
+      '_id',
+    ];
     let result = [];
     arrObj.forEach((obj) => {
       let newObj = {};
@@ -23,7 +40,11 @@ const Home = () => {
   };
 
   const parseObject = (obj) => {
-    obj = filterObject(obj);
+    const appliedArray = [];
+    const phoneInterviewArr = [];
+    const interviewArr = [];
+
+    // obj = filterObject(obj);
     obj.forEach((object) => {
       if (object.status === 'applied') {
         appliedArray.push(object);
@@ -35,101 +56,39 @@ const Home = () => {
         interviewArr.push(object);
       }
     });
+
+    const initialColumn = {
+      applied: {
+        id: 'applied',
+        companies: appliedArray,
+      },
+      phoneInterview: {
+        id: 'phoneInterview',
+        companies: phoneInterviewArr,
+      },
+      interview: {
+        id: 'interview',
+        companies: interviewArr,
+      },
+    };
+
+    return initialColumn;
   };
-  //fetch rquest ->
-  const data = [
-    {
-      user_id: 12,
-      company_name: 'Amazon',
-      status: 'applied',
-      contact_name: '',
-      contact_email: '',
-      application_type: '',
-      application_date: '',
-      outcomes: 'Software Enginnering 2',
-      notes: '',
-    },
-    {
-      user_id: 13,
-      company_name: 'Tesla',
-      position: 'Software Engineer 1',
-      status: 'phoneInterview',
-      contact_name: '',
-      contact_email: '',
-      application_type: '',
-      application_date: '',
-      outcomes: 'Software Enginnering',
-      notes: '',
-    },
-    {
-      user_id: 15,
-      company_name: 'Square',
-      position: 'Software Engineer 1',
-      status: 'phoneInterview',
-      contact_name: '',
-      contact_email: '',
-      application_type: '',
-      application_date: '',
-      outcomes: 'Software Enginnering',
-      notes: '',
-    },
-    {
-      user_id: 15,
-      company_name: 'Disney',
-      position: 'Software Engineer 1',
-      status: 'applied',
-      contact_name: '',
-      contact_email: '',
-      application_type: '',
-      application_date: '',
-      outcomes: 'Software Enginnering',
-      notes: '',
-    },
-    {
-      user_id: 15,
-      company_name: 'Oatly',
-      position: 'Software Engineer 1',
-      status: 'interview',
-      contact_name: '',
-      contact_email: '',
-      application_type: '',
-      application_date: '',
-      outcomes: 'Software Enginnering',
-      notes: '',
-    },
-  ];
 
-  const appliedArray = [];
-  const phoneInterviewArr = [];
-  const interviewArr = [];
-  parseObject(data);
+  const [columns, setColumns] = useState({});
 
-  const initialColumn = {
-    applied: {
-      id: 'applied',
-      companies: appliedArray,
-    },
-    phoneInterview: {
-      id: 'phoneInterview',
-      companies: phoneInterviewArr,
-    },
-    interview: {
-      id: 'interview',
-      companies: interviewArr,
-    },
-  };
-  const [columns, setColumns] = useState(initialColumn);
-
-  //   useEffect(() => {
-  //     fetch('/api')
-  //       .then(results => results.json())
-  //         .then(data => {
-  //           let date = data[0].createdAt;
-  //           console.log(date);
-
-  //           setExerciseList([...exerciselist, ...data]);
-  //         });
-  // }, []);
+  useEffect(() => {
+    fetch('/data/companies', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userID: 1 }),
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        const parsedata = parseObject(res);
+        setColumns({ ...parsedata });
+      });
+  }, []);
 
   const onDragEnd = ({ source, destination }) => {
     //make sure we have valid destination
@@ -159,18 +118,12 @@ const Home = () => {
       setColumns((state) => ({ ...state, [newCol.id]: newCol }));
       return null;
     } else {
-      console.log('companyname', start.companies[source.index]);
-      console.log('companyobj - userID', start.companies[source.index].user_id);
-
-      //pulls new status for card
-      console.log('endID', end.id);
-
       //send updated status to the backend
-      fetch('/data/companies', {
-        method: 'POST',
+      fetch('/data/status', {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: start.companies[source.index].user_id,
+          _id: start.companies[source.index]._id,
           status: end.id,
         }),
       })
@@ -205,22 +158,35 @@ const Home = () => {
       return null;
     }
   };
+  console.log('columns', columns);
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          margin: '24px auto',
-          width: '80%',
-          gap: '8px',
-        }}
-      >
-        {Object.values(columns).map((col) => (
-          <Column col={col} key={col.id} />
-        ))}
-      </div>
-    </DragDropContext>
+    <div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            margin: '24px auto',
+            width: '80%',
+            gap: '8px',
+          }}
+        >
+          {Object.values(columns).map((col) => (
+            <Column
+              columns={columns}
+              setColumns={setColumns}
+              col={col}
+              key={col.id}
+              newCard={newCard}
+              setNewCard={setNewCard}
+            />
+          ))}
+        </div>
+      </DragDropContext>
+      {/* <Col> */}
+      {/* </Col> */}
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-const Card = ({ text, position, date, index }) => {
+const CompanyCard = ({ text, position, date, index }) => {
   return (
     <Draggable draggableId={text} index={index}>
       {(provided) => (
@@ -15,11 +15,11 @@ const Card = ({ text, position, date, index }) => {
           <br />
           {position}
           <br />
-          {date}
+          {date.slice(0, 10)}
         </div>
       )}
     </Draggable>
   );
 };
 
-export default Card;
+export default CompanyCard;

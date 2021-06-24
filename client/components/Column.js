@@ -1,41 +1,59 @@
 import React from 'react';
-import Card from './Card';
+import CompanyCard from './Card';
 import { Droppable } from 'react-beautiful-dnd';
 import '../scss/card.scss';
-const Column = ({ col: { companies, id } }) => {
+import AddCardButton from './AddCardButton';
+
+const Column = ({
+  col: { companies, id },
+  newCard,
+  setNewCard,
+  columns,
+  setColumns,
+}) => {
   return (
-    <Droppable droppableId={id}>
-      {(provided) => (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <h2>{id}</h2>
+    <div>
+      <Droppable droppableId={id}>
+        {(provided) => (
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              minHeight: '120px',
             }}
-            {...provided.droppableProps}
-            ref={provided.innerRef}
           >
-            {companies.map((text, index) => (
-              <Card
-                key={text.company_name}
-                text={text.company_name}
-                position={text.outcomes}
-                date={text.application_date}
-                index={index}
-              />
-            ))}
-            {provided.placeholder}
+            <h2>{id}</h2>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                // minHeight: '120px',
+              }}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {companies.map((text, index) => (
+                <CompanyCard
+                  key={text.company_name}
+                  text={text.company_name}
+                  position={text.position_type}
+                  date={text.application_date}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
           </div>
-        </div>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+      <div>
+        <AddCardButton
+          newCard={newCard}
+          setNewCard={setNewCard}
+          columns={columns}
+          setColumns={setColumns}
+        />
+      </div>
+    </div>
   );
 };
 

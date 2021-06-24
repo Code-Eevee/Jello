@@ -1,8 +1,71 @@
-// .Card {
-//   background-color: aqua;
-//   //   width: 100px;
-//   //   height: 100px;
-//   border-style: solid;
-//   //   padding: 5px;
-//   text-align: center;
-// }
+.Card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px 8px 8px 8px;
+  border-width: 0ch;
+  border-color: rgb(180, 180, 180);
+  background-color: rgb(247, 247, 247);
+  box-shadow: -2px -6px 15px #fff, 2px 6px 15px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  height: 100px;
+  border-style: solid;
+  padding: 5px;
+  margin: 10px;
+  p{
+    padding: 0;
+    margin: 0;
+  }
+}
+ 
+.add-card-button {
+  font-size: 25pt;
+  border-radius: 8px 8px 8px 8px;
+  border-width: 0ch;
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  border-color: rgb(180, 180, 180);
+  background-color: rgb(221, 247, 227);
+  box-shadow: -2px -6px 15px #fff, 2px 6px 15px rgba(0, 0, 0, 0.15);
+
+}
+
+.AddCardForm{
+  margin-top: 40px;
+  width: 200px;
+  height: 150px;
+  border-style: solid;
+  border-radius: 8px 8px 8px 8px;
+  border-width: 0ch;
+  border-color: rgb(94, 92, 92);
+  background-color: rgb(247, 247, 247);
+  box-shadow: -2px -6px 15px #fff, 2px 6px 15px rgba(0, 0, 0, 0.15);
+  border-width: 0ch;
+  padding: 10px;
+  input{
+    border-radius: 4px;
+    border: 2px solid rgb(247, 247, 247);
+    width: 80%;
+    padding: 5px;
+    
+  }
+}
+
+#position-div {
+  margin-top: 10px;
+}
+
+#date-div {
+  margin-top: 10px;
+}
+
+#add-company-button {
+  width: 100px;
+  height: 25px;
+  background-color: rgb(46, 192, 80);
+  border: none;
+  border-radius: 4px;
+  color: white;
+}

@@ -63,29 +63,36 @@ const AddCardForm = ({ newCard, setNewCard, columns, setColumns }) => {
 
   return (
     <div className="AddCardForm">
-      Company:
-      <input
-        type="text"
-        onChange={(e) => {
-          setCompany(e.target.value);
-        }}
-      />
+      <div id="company-div">
+        <label>Company:</label>
+        <input
+          type="text"
+          onChange={(e) => {
+            setCompany(e.target.value);
+          }}
+        />
+      </div>
+      
+      <div id="position-div">
+        <label id="position-label">Position:</label>
+        <input
+          type="text"
+          onChange={(e) => {
+            setPosition(e.target.value);
+          }}
+        />
+      </div>
+      <div id="date-div">
+        <input
+          type="date"
+          onChange={(e) => {
+            setApplicationDate(e.target.value);
+            console.log(applicationDate);
+          }}
+        />
+      </div>
       <br />
-      Position:
-      <input
-        type="text"
-        onChange={(e) => {
-          setPosition(e.target.value);
-        }}
-      />
-      <input
-        type="date"
-        onChange={(e) => {
-          setApplicationDate(e.target.value);
-          console.log(applicationDate);
-        }}
-      />
-      <button onClick={addHandler}>ADD</button>
+      <button id="add-company-button" onClick={addHandler}>ADD</button>
     </div>
   );
 };

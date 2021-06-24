@@ -13,7 +13,7 @@ const AddCardButton = ({ newCard, setNewCard, columns, setColumns }) => {
   if (!buttonClicked) {
     return (
       <div>
-        <Button variant="secondary" onClick={toggleButton}>
+        <Button className="add-card-button" variant="secondary" onClick={toggleButton}>
           +
         </Button>
       </div>
@@ -21,7 +21,7 @@ const AddCardButton = ({ newCard, setNewCard, columns, setColumns }) => {
   } else {
     return (
       <div>
-        <Button variant="secondary" onClick={toggleButton}>
+        <Button className="add-card-button" variant="secondary" onClick={toggleButton}>
           +
         </Button>
         <AddCardForm
